@@ -6,5 +6,6 @@ Modules:
 - offtarget: off-target risk assessment (M2)
 - embeddings: DNA foundation model embeddings (DNABERT-2 etc.)
 - gem: genome-scale metabolic modeling with cobrapy (B2)
+- llm_agent: LLM-assisted target recommendation + RAG knowledge base (M3/M4)
 """
-__version__ = "0.1.0"
+__version__ = "0.2.0"
