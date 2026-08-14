@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aicrispr"
+version = "0.1.0"
+description = "AI-CRISPR Design System: gRNA efficiency, off-target prediction, and metabolic target design for E. coli cell factories"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+license = {text = "MIT"}
+authors = [{name = "AI-CRISPR Team"}]
+dependencies = [
+    "numpy>=1.24,<3",
+    "pandas>=2.0",
+    "scipy>=1.10",
+    "scikit-learn>=1.3",
+    "biopython>=1.81",
+    "torch>=2.1",
+    "transformers>=4.36",
+    "peft>=0.7",
+    "cobra>=0.29",
+    "pypdf>=4.0",
+    "matplotlib>=3.7",
+    "huggingface_hub>=0.20",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "jupyter>=1.0"]
+tf1 = ["tensorflow==1.15", "sonnet==1.35", "keras==2.2.4"]  # DeepCRISPR 旧环境（建议 Docker）
+rna = ["rpy2>=3.5"]  # DESeq2 via R
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,6 @@
+# DeepCRISPR 旧版 TF1 环境（与主环境隔离，建议 Docker）
+# 安装: docker run -it tensorflow/tensorflow:1.15.0-py3 bash
+tensorflow==1.15
+sonnet==1.35
+keras==2.2.4
+# DeepCRISPR 源码位于 third_party/DeepCRISPR/
