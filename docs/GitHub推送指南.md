@@ -32,7 +32,7 @@
 
 在 PowerShell 执行（先建远程仓库，再存 token）：
 
-    cd C:/Users/lxj19/aaa_bioinfor/AI-CRISPR-Design
+    cd <你的AI-CRISPR-Design仓库路径>
     # 1) 创建远程仓库（把 <TOKEN> 换成你的 token）
     curl.exe -X POST -H "Authorization: token <TOKEN>" https://api.github.com/user/repos -H "Content-Type: application/json" -d "{\"name\":\"AI-CRISPR-Design\",\"private\":false,\"description\":\"AI-driven CRISPR design system for E. coli cell factories\"}"
     # 2) 推送（首次会弹出窗口/提示输入密码，粘贴 token 即可；之后 Windows 会记住）
@@ -40,7 +40,7 @@
 
 ### 方式 2：临时用（不存储，每次都要输入）
 
-    cd C:/Users/lxj19/aaa_bioinfor/AI-CRISPR-Design
+    cd <你的AI-CRISPR-Design仓库路径>
     git push -u origin master
     # 用户名填 laitygreen
     # 密码粘贴 token（不是登录密码！）
