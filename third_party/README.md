@@ -24,4 +24,4 @@
     git clone <url>
     # 或 codeload 下载: https://codeload.github.com/<owner>/<repo>/tar.gz/refs/heads/<branch>
 
-注意：部分仓库需遵循各自许可证（AGPL/GPL 传染性），在参赛提交时确认合规。
+注意：部分仓库需遵循各自许可证（AGPL/GPL 传染性），在发布使用时确认合规。

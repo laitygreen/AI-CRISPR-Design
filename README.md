@@ -1,6 +1,6 @@
 # AI-CRISPR Design System
 
-AI 驱动的 CRISPR 基因编辑设计系统，面向大肠杆菌（E. coli）氨基酸细胞工厂（β-丙氨酸 / L-高丝氨酸）的代谢工程改造。赛道二参赛项目：AI 基因编辑与核酸工具设计。
+AI 驱动的 CRISPR 基因编辑设计系统，面向大肠杆菌（E. coli）氨基酸细胞工厂（β-丙氨酸 / L-高丝氨酸）的代谢工程改造。
 
 ## 功能模块
 
@@ -64,7 +64,7 @@ AI 驱动的 CRISPR 基因编辑设计系统，面向大肠杆菌（E. coli）�
 
 ## 文档
 
-- 参赛方案：docs/挑战赛参赛方案_赛道二_AI-CRISPR智能设计系统_v2.md
+
 - 知识库：docs/knowledge_base/
 - 方法学习包：docs/methods/（5 路线：gRNA效率/脱靶/DNA底座/LLM/代谢网络）
 - 文献库：docs/literature/（294 篇分级 + 25 篇精读卡）

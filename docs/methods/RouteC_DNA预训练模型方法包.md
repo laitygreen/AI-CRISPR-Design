@@ -1,7 +1,7 @@
 # RouteC DNA 预训练模型方法包
 
-> 备赛项目：AI-CRISPR 驱动大肠杆菌氨基酸细胞工厂智能设计（赛道二：AI 基因编辑）
-> 时间线：9/5 报名 → 10/4 提交；本路线聚焦"DNA 预训练基础模型（Foundation Model）"的选型、嵌入提取与下游微调。
+> 项目：AI-CRISPR 驱动大肠杆菌氨基酸细胞工厂智能设计
+> 时间线：按项目里程碑推进；本路线聚焦"DNA 预训练基础模型（Foundation Model）"的选型、嵌入提取与下游微调。
 > 本地代码：`exp design\methods\repos\{DNABERT-master, DNABERT_2-main, nucleotide-transformer-main, hyena-dna-main}`；文献卡：`exp design\knowledge_base\literature\`。
 
 ## 0. 路线总览

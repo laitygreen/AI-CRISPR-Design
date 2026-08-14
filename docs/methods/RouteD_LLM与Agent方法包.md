@@ -1,6 +1,6 @@
 # RouteD：LLM 与 Agent 方法包（BioGPT 微调 / D2Cell 复刻 / CRISPR-GPT Agent / RAG / LoRA / 指令数据集）
 
-> 适用赛道：**赛道二 · AI 基因编辑**（报名 9/5，提交 10/4）。本路线为 AI-CRISPR 系统提供"大脑"：让机器**读文献 → 建知识库 → 推荐靶点 → 设计 gRNA → 解释决策**。
+> 适用：本路线为 AI-CRISPR 系统提供"大脑"：让机器**读文献 → 建知识库 → 推荐靶点 → 设计 gRNA → 解释决策**。
 > 依据文献卡：S_BioGPT（LLM 底座）、S_D2Cell（LLM 文献挖掘 + GEM+GNN 预测 + RAG）、S_Cas12a-LLM（蛋白 LLM + 小样本活性预测）；本地仓库：DNABERT / DNABERT-2（序列底座与 LoRA 微调模板）。**BioGPT / D2Cell / CRISPR-GPT / BioT5 无本地仓库，以 GitHub 链接 + 文献卡为准。**
 
 ## 0. 路线总览
@@ -152,16 +152,16 @@ class D2CellPred(torch.nn.Module):
 
 **RAG 知识库**：BGE-M3 多语言嵌入把 29,006 条表格记录向量化，查询取 top-5 相似条目拼进 prompt，回答附 DOI 溯源（减少幻觉）。LangChain 实现，架构可直接照搬。
 
-**LoRA 与常见坑**：LoRA 只训练低秩增量矩阵（r=8），显存/算力省 90%+，适配 10/4 提交前的快速迭代。坑点：①幻觉——回答必须带 DOI 溯源，必要时规则校验；②文献偏置——文献只报成功改造，训练负样本需构造（与增产相反改造 + FSEOF 未预测靶点，正:负=40:60）；③灾难性遗忘——微调时混入 IEPile 通用抽取样本；④实体归一化——菌株名不规范（"QW101"），必须映射 UniProt/KEGG/NCBI ID；⑤语料时效——BioGPT 语料截止 2021，CRISPR 新技术知识要增量补充；⑥小样本——Cas12a 活性预测用"ESM 嵌入+PCA 降维 4~8 维+树模型"在 69 样本上达 92.3%，可直接迁移到 gRNA 小样本场景。
+**LoRA 与常见坑**：LoRA 只训练低秩增量矩阵（r=8），显存/算力省 90%+，适配快速迭代。坑点：①幻觉——回答必须带 DOI 溯源，必要时规则校验；②文献偏置——文献只报成功改造，训练负样本需构造（与增产相反改造 + FSEOF 未预测靶点，正:负=40:60）；③灾难性遗忘——微调时混入 IEPile 通用抽取样本；④实体归一化——菌株名不规范（"QW101"），必须映射 UniProt/KEGG/NCBI ID；⑤语料时效——BioGPT 语料截止 2021，CRISPR 新技术知识要增量补充；⑥小样本——Cas12a 活性预测用"ESM 嵌入+PCA 降维 4~8 维+树模型"在 69 样本上达 92.3%，可直接迁移到 gRNA 小样本场景。
 
 **与课题关联**：β-丙氨酸（天冬氨酸-α脱羧酶 panD 通路）与 L-高丝氨酸（天冬氨酸激酶 thrA/metL、高丝氨酸脱氢酶 hom/thrA 分支）的"基因-酶-产物"关系正是 D2 抽取的目标；D2Cell-pred 可直接以这两种产物为 label 训练靶点预测；RAG 问答即系统 D 模块的 MVP。
 
 ## 5. 行动项（按优先级）
 
 1. **[P0] 复刻 D2Cell-learn 三步管线，构建 β-丙氨酸/高丝氨酸知识库**：clone LiLabTsinghua/D2Cell，用其 NER/RE prompt + Qwen1.5-14B-Chat LoRA 微调，对 PubMed 相关文献抽取"基因改造→产物→滴度"，实体用 UniProt/KEGG 归一化，按第 2.3 节 schema 入库。产出：100~500 条带 DOI 的氨基酸工程记录（支撑 B1/M4）。
-2. **[P0] 搭建 RAG 问答 MVP**：BGE-M3 + LangChain + top-5 检索 + Qwen/DeepSeek 生成，回答附 DOI；用第 3.1 节指令数据集 + 知识库向量化。产出：可演示的"代谢工程知识问答"（赛道二答辩亮点）。
+2. **[P0] 搭建 RAG 问答 MVP**：BGE-M3 + LangChain + top-5 检索 + Qwen/DeepSeek 生成，回答附 DOI；用第 3.1 节指令数据集 + 知识库向量化。产出：可演示的"代谢工程知识问答"（项目亮点）。
 3. **[P1] 复现 D2Cell-pred（iML1515 + GNN）做靶点预测基线**：用本地 cobrapy 跑 FSEOF 生成模拟数据，按第 3.4 节骨架训练，与 RouteA gRNA 模型串联成"靶点→gRNA"端到端流水线。
 4. **[P1] DNABERT-2 + LoRA 微调 gRNA 效率/脱靶模型**：把 RouteA 的数据转成 CSV（seq,label），用第 3.2 节骨架训练；同时复刻"ESM 嵌入+PCA+LightGBM"小样本配方做对照（借鉴 S_Cas12a 卡）。
-5. **[P2] CRISPR-GPT 式多智能体 demo**：输入"目标产物+底盘"→ 检索知识库 → 调靶点模型 → 调 gRNA 模型 → 输出设计方案；以此驱动指令数据集扩充，为答辩准备端到端演示视频。
+5. **[P2] CRISPR-GPT 式多智能体 demo**：输入"目标产物+底盘"→ 检索知识库 → 调靶点模型 → 调 gRNA 模型 → 输出设计方案；以此驱动指令数据集扩充，制作端到端演示视频。
 
-> **备赛节奏**：9/5 报名后 1 周内完成 P0（知识库 + RAG MVP）；9 月中完成 P1 基线复现与微调；10/4 提交前完成 P2 demo 与文档收尾。所有 GitHub 资源先 clone 到 `methods/repos/` 再离线使用，避免比赛现场网络问题。
+> **推进节奏**：P0（知识库 + RAG MVP）；9 月中完成 P1 基线复现与微调；P2 完成 demo 与文档收尾。所有 GitHub 资源先 clone 到 methods/repos/ 再离线使用。

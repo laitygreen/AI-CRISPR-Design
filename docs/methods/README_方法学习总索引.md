@@ -43,7 +43,7 @@
 | CRISPOR | crispor.tefor.net | gRNA 设计聚合工具 |
 | rth.dk CRISPRon 数据 | rth.dk/resources/crispr | 23902 训练数据（需查证申请方式） |
 
-## 下一步建议（结合备赛时间线）
+## 下一步建议
 
 1. **P0（本周）**：按 RouteA §2 命令链跑通 CRISPRon 推理（`bash bin/CRISPRon.sh test/seq.fa`），验证环境
 2. **P0**：按 RouteC §3 骨架加载 DNABERT-2，跑通 embedding 提取（mean pooling）

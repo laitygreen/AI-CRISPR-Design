@@ -1,6 +1,6 @@
 # RouteA gRNA 编辑效率预测 方法学习包
 
-> 适用：赛道二"AI 基因编辑"（9/5 报名，10/4 提交）；本包对应 M1（gRNA 效率预测）+ B2（统一评测）模块，为大肠杆菌（E. coli MG1655）β-丙氨酸 / L-高丝氨酸细胞工厂的基因敲除 sgRNA 设计提供模型底座。
+> 适用：本包对应 M1（gRNA 效率预测）+ B2（统一评测）模块，为大肠杆菌（E. coli MG1655）β-丙氨酸 / L-高丝氨酸细胞工厂的基因敲除 sgRNA 设计提供模型底座。
 
 ## 0. 路线总览
 
@@ -10,7 +10,7 @@
   - **A-2 现代 PyTorch 重实现（主攻）**：按 CRISPRon（Nat Commun 2021）的"多尺度 CNN + ΔGB 热力学特征"架构，用 PyTorch 重写训练/推理，并预留 Transformer 编码器替换口（参考 AttCRISPR、TransCrispr）。
 - **适用场景**：人源数据训练→迁移受限，最终需用 E. coli 自身数据重训（综述明确"物种特异模型是硬需求"，Wang & Zhang 2019 的 E. coli CNN 为佐证）；本包先跑通人源公开数据管线，再把数据源换成 E. coli。
 - **决策树**：快速验证 → 用 A-1/Azimuth 预训练模型直接打分；要"可训练、可迁移" → A-2 PyTorch CNN+ΔGB；要"可解释+长上下文" → A-2 的 Transformer 变体。三档能力逐级递进，共享同一套 30mer 特征编码与评测协议。
-- **备赛定位**：本路线产出三个可交付物——① 复现报告（TF1 旧框架 vs PyTorch 新实现的性能/耗时对比，本身就是答辩加分项）；② E. coli 专属 gRNA 效率模型与打分脚本；③ 一套防泄漏的评测基准，用于回答"你的模型比已有工具强在哪"。
+- **项目定位**：本路线产出三个可交付物——① 复现报告（TF1 旧框架 vs PyTorch 新实现的性能/耗时对比，本身是亮点）；② E. coli 专属 gRNA 效率模型与打分脚本；③ 一套防泄漏的评测基准，用于回答"你的模型比已有工具强在哪"。
 
 ## 1. 公共数据库与资源原件
 
@@ -167,5 +167,5 @@ ap  = average_precision_score((y_true > thresh).astype(int), y_pred)
 1. **[P0] 环境与推理打通（1–2 天）**：conda 建 crispron 环境→`bin/test.sh` 自检→用 6 个预训练模型对 test/seq.fa 出 crispron.csv；同时 docker 拉 DeepCRISPR 镜像跑通 on-target 回归。产出：两份"能出分数"的基线脚本。
 2. **[P0] PyTorch 骨架跑通（2–3 天）**：下载 CRISPRon 23,902 条数据（需查证获取方式），实现第 3 节模型+Hamming 分区+6 折训练，复现 Spearman≈0.80 量级；同时登记 Doench V2/Azimuth 数据为外部验证集。
 3. **[P1] E. coli 训练集构建（3–5 天）**：MG1655 基因组提取全部 NGG 30mer；整合文献 E. coli sgRNA 数据（Wang & Zhang 2019 等）+ 自建 surrogate 载体高通量活性数据（CRISPRon 思路），做线性 rescale 融合；重训 A-2 模型。
-4. **[P1] 统一评测协议（穿插）**：固定 LightGBM/SVM 简单基线 + Spearman/Pearson/AUROC 三指标 + 去泄漏划分，形成 B2 评估规范，支撑备赛报告中"相对提升"的可信度。
+4. **[P1] 统一评测协议（穿插）**：固定 LightGBM/SVM 简单基线 + Spearman/Pearson/AUROC 三指标 + 去泄漏划分，形成 B2 评估规范，支撑项目报告中"相对提升"的可信度。
 5. **[P2] 可解释性与交付**：SHAP/显著性图输出设计规则（PAM 近端偏好等），对接 LLM 解释模块与 gRNA 设计推荐界面（rth.dk webserver 形态可参考）。

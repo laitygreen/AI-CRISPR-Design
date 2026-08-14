@@ -13,7 +13,7 @@
 5. 点击右上角绿色按钮 **Generate new token** → 选择 **Generate new token (classic)**
 6. 填写表单：
    - Note（备注）：随便填，如 aicrispr-push
-   - Expiration（有效期）：建议选 30 天 或 90 天（够备赛用了）
+   - Expiration（有效期）：建议选 30 天 或 90 天（够用）
    - Select scopes（权限）**只勾选第一个**：repo（完整仓库权限）
      - 展开后默认包含 repo:status / repo_deployment / public_repo / repo:invite / security_events，不用单独勾
 7. 拉到页面底部，点击 **Generate token**（绿色）
