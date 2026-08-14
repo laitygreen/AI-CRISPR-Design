@@ -40,7 +40,12 @@ def load_model(source=None):
 
 def run_fba(model, objective=None):
     """FBA: set objective (optional), run, return flux + shadow prices."""
-    sol = model.optimize(objective=objective)
+    if objective is not None:
+        try:
+            model.objective = objective
+        except Exception:
+            pass
+    sol = model.optimize()
     result = {
         "status": sol.status,
         "objective_value": float(sol.objective_value),

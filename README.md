@@ -13,6 +13,16 @@ AI 驱动的 CRISPR 基因编辑设计系统，面向大肠杆菌（E. coli）�
 | llm_agent | src/aicrispr/llm_agent/ | LLM 辅助靶点推荐 + RAG 知识库 + Agent 流程（M3/M4） | ✅ 已实现 |
 | gem | src/aicrispr/gem/ | 代谢网络建模（FBA/pFBA，cobrapy + iML1515）（B2） | ✅ 已实现 |
 
+## 五路线文件夹（routes/，每路线独立可运行）
+
+| 路线 | 文件夹 | 入口 | 验证 |
+|---|---|---|---|
+| 1 gRNA效率 | routes/route01_gRNA效率/ | routeA_train.py / routeA_predict.py | train r=0.76 |
+| 2 脱靶 | routes/route02_脱靶预测/ | routeB_train.py / routeB_predict.py | AUROC=0.94 |
+| 3 DNA嵌入 | routes/route03_DNA嵌入/ | routeC_embed.py | 相似度矩阵 |
+| 4 LLM/Agent | routes/route04_LLM与Agent/ | routeD_recommend.py | thrA/aspC/pyc/ppc/sthA |
+| 5 代谢网络 | routes/route05_代谢网络/ | routeE_fba.py | iML1515 FBA |
+
 ## 五路线验证（2026-08-14, Python 3.10）
 
     python demo_routes.py
